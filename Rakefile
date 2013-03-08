@@ -3,6 +3,7 @@ require 'rspec/core/rake_task'
 require_relative 'db/config'
 require_relative 'lib/students_importer'
 require_relative 'lib/teachers_faker'
+require_relative 'lib/assign_teachers'
 
 
 desc "create the database"
@@ -35,6 +36,12 @@ task "db:teachers" do
   TeachersFaker.fake
 end
 
+desc "randomly assign teachers"
+task "db:assign" do
+  AssignTeachers.randomly_distribute
+end
+
+
 desc 'Retrieves the current schema version number'
 task "db:version" do
   puts "Current version: #{ActiveRecord::Migrator.current_version}"
@@ -44,3 +51,6 @@ desc "Run the specs"
 RSpec::Core::RakeTask.new(:specs)
 
 task :default  => :specs
+
+
+
