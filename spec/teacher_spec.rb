@@ -2,7 +2,6 @@ require 'rspec'
 require_relative '../app/models/teacher'
 
 describe Teacher, "validations" do
-
   before(:all) do
     raise RuntimeError, "be sure to run 'rake db:migrate' before running these specs" unless ActiveRecord::Base.connection.table_exists?(:teachers).should be_true
     Teacher.delete_all
