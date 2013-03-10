@@ -3,14 +3,12 @@ require 'faker'
 require_relative '../app/models/teacher'
 require_relative '../app/models/student'
 
-describe 'associations' do
+describe 'teacher associations' do
   before(:all) do
     raise RuntimeError, "be sure to run 'rake db:migrate' before running these specs" unless ActiveRecord::Base.connection.table_exists?(:teachers).should be_true
     Teacher.delete_all
     Student.delete_all
-  end
 
-  before(:all) do
     @teacher = Teacher.new
     @teacher.assign_attributes(
       :name => "Jesse James",
@@ -34,17 +32,23 @@ describe 'associations' do
         :birthday => Date.new(1987,4,24),
         :teacher_id => @teacher.id           )
     end
-
   end
 
   it "should include happy gilmore" do
-    p @teacher.students.where("first_name = 'Happy'").first_name
-    @teacher.students.where("first_name = 'Happy'").should_not be nil
+    @teacher.students.where(":first_name = ?", 'Happy').should_not be nil
+  end
+
+  it "should have 5 students" do
+    @teacher.students.count
+  end
+
+  it "should point back to the teacher" do
+    expect(@student.teacher).to eq(@teacher)
   end
 
 
 
   after(:all) do
-      # system 'rake db:populate'
+      system 'rake db:populate'
   end
 end
