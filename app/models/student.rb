@@ -5,7 +5,7 @@ class Student < ActiveRecord::Base
   validates :phone, :phone => true
   validate :age_greater_than_5
 
-  belongs_to :teacher
+  has_and_belongs_to_many :teachers
 
   def name
     "#{first_name} #{last_name}"

@@ -15,15 +15,23 @@ describe 'teacher associations' do
       :email => 'kreayshawn@oaklandhiphop.net',
       :phone => '(510) 555-1212 x4567')
     @teacher.save
+
+    @teacher2 = Teacher.create(:name => "Professor Silver", 
+                               :email => "j@lifthero.com",
+                               :phone => '123.456.7890')
     @student = Student.new
     @student.assign_attributes(
       :first_name => "Happy",
       :last_name => "Gilmore",
       :gender => 'male',
       :birthday => Date.new(1970,9,1),
-      :teacher_id => @teacher.id
     )
     @student.save
+
+    @student.teachers << @teachers.find(@teacher.id)
+    @student.teachers << @teachers.find(@teacher2.id)
+
+
     4.times do
       Student.create(
         :first_name => Faker::Name.first_name,
@@ -43,7 +51,7 @@ describe 'teacher associations' do
   end
 
   it "should point back to the teacher" do
-    expect(@student.teacher).to eq(@teacher)
+    @student.teachers.include?(@teacher).should be true
   end
 
 
