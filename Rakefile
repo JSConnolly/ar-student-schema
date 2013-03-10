@@ -29,6 +29,8 @@ end
 desc "populate the test database with sample data"
 task "db:populate" do
   StudentsImporter.import
+  TeachersFaker.fake
+  AssignTeachers.randomly_distribute
 end
 
 desc "fake some teachers into the database"

@@ -5,4 +5,8 @@ class Teacher < ActiveRecord::Base
   validates :phone, :phone => true
 
   has_many :students
+
+  def self.delete_all
+    Teacher.destroy_all
+  end
 end
