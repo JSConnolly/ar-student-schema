@@ -3,10 +3,7 @@ require_relative '../config'
 class CreateStudentsTeachers < ActiveRecord::Migration
   def up
     puts "adding table students_teachers"
-    create_table :students_teachers do |t|
-      t.integer :student_id
-      t.integer :teacher_id
-    end
+    create_join_table :students, teachers
   end
 
   def down

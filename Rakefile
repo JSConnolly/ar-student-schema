@@ -22,6 +22,9 @@ task "db:migrate" do
   puts ActiveRecord::Migrator.migrations_paths
   ActiveRecord::Migration.verbose = ENV["VERBOSE"] ? ENV["VERBOSE"] == "true" : true
   ActiveRecord::Migrator.migrate(ActiveRecord::Migrator.migrations_paths, ENV["VERSION"] ? ENV["VERSION"].to_i : nil) do |migration|
+    next if migration.name == 'CreateTeachersStudents' #because I directly edited this migration
+    next if migration.name == "RecreateStudentsTeachers"
+    next if migration.name == "RerecreateStudentsTeachers"
     ENV["SCOPE"].blank? || (ENV["SCOPE"] == migration.scope)
   end
 end

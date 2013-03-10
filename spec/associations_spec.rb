@@ -28,8 +28,8 @@ describe 'teacher associations' do
     )
     @student.save
 
-    @student.teachers << @teachers.find(@teacher.id)
-    @student.teachers << @teachers.find(@teacher2.id)
+    @student.teachers << Teacher.find(@teacher.id)
+    @student.teachers << Teacher.find(@teacher2.id)
 
 
     4.times do
